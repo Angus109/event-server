@@ -3,9 +3,15 @@ import joi from 'joi-browser'
 
 
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String
+    name: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    password: {
+        type: String
+    }
  
    
 }, {timestamps:true})

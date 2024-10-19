@@ -11,9 +11,15 @@ interface Sponsors{
 
 
 const schemaSponsors = new mongoose.Schema({
-    name: String,
-    logo: String,
-    tier: String,
+    name: {
+        type:String
+    },
+    logo: {
+        type: String
+    },
+    tier: {
+        type: String
+    },
    
 
 

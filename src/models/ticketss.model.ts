@@ -10,9 +10,14 @@ interface tikets {
 
 
 const ticketShema = new mongoose.Schema({
-    name: String,
-    email: String,
+    name: {
+        type: String
+    },
+    email: {
+        type: String
+    },
     type: {
+       type: String,
        enum:["VIP", "Regular", "Early Birds"],
        default: "Regular"
     },

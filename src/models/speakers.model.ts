@@ -13,11 +13,22 @@ interface Speakers{
 
 
 const schemaSpakers = new mongoose.Schema({
-    name: String,
-    image: String,
-    role: String,
-    company: String,
-    bio: String
+    name: {
+        type: String,
+    },
+    image: {
+        type: String,
+     
+    },
+    role: {
+        type: String
+    },
+    company: {
+        type: String
+    },
+    bio: {
+        type: String
+    }
 
 
 }, {timestamps: true})
