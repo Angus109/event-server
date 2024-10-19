@@ -24,7 +24,7 @@ export const createSponsor = async(req: any, res: any, next:any )=>{
         
 
    }catch(err){
-    res.json({
+    res.status(501).send({
         succes: false,
         error:err
     })
@@ -45,7 +45,7 @@ export const getSponsorsAll = async(req: any, res: any, next:any)=> {
         })
 
     }catch(err){
-        res.json({
+        res.status(501).send({
             success: false,
             error: err
         })
@@ -94,7 +94,7 @@ export const updateSponsor = async (req:any, res: any, next:any) =>{
 
         
     }catch(err){
-        res.json({
+        res.status(501).send({
             success: false,
             error: err
         })
@@ -130,7 +130,7 @@ export const deleteSponsor= async(req: any, res:any, next:any)=>{
 
 
    }catch(err){
-    res.json({
+    res.status(501).send({
         succes: false,
         error: err
     })

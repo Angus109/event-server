@@ -24,7 +24,7 @@ export const createTicket = async(req: any, res: any, next:any )=>{
         
 
    }catch(err){
-    res.json({
+    res.status(501).send({
         succes: false,
         error:err
     })
@@ -45,7 +45,7 @@ export const getTicketsAll = async(req: any, res: any, next:any)=> {
         })
 
     }catch(err){
-        res.json({
+        res.status(501).send({
             success: false,
             error: err
         })
@@ -94,7 +94,7 @@ export const updateTicket = async (req:any, res: any, next:any) =>{
 
         
     }catch(err){
-        res.json({
+        res.status(501).send({
             success: false,
             error: err
         })
@@ -130,7 +130,7 @@ export const deleteTicket= async(req: any, res:any, next:any)=>{
 
 
    }catch(err){
-    res.json({
+    res.status(501).send({
         succes: false,
         error: err
     })

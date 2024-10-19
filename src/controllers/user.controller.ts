@@ -8,12 +8,20 @@ const config = CONFIG()
 
 export const createUser = async (req:any, res:any, next:any)=>{
     const {error} = ValidateUser(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
+    if(error) return res.status(400).send({
+        success:false,
+        message: error.details[0].message
+    })
 
    
     try{
         const findUser = await UserModel.findOne({email:req.body.email})
-        if (findUser) return res.status(401).send('Email has been taken')
+        if (findUser) return res.status(401).send({
+            succe:false,
+            message: "Email has been taken"
+        })
+
+        
 
       
         const newUser = new UserModel ({
@@ -29,14 +37,14 @@ export const createUser = async (req:any, res:any, next:any)=>{
         res.json({
             success: true,
             message:'user created successfully',
-            data: saveUser
+            result: saveUser
         })
         
 
        
        
     }catch(err){
-        res.json({
+        res.status(501).send({
             success: false,
             error: err
         })
@@ -53,17 +61,23 @@ export const AuthUser = async (req:any, res:any, next:any)=>{
 
     try{
         const findUser = await UserModel.findOne({email:req.body.email})
-        if(!findUser) return res.status(401).send('user not found')
+        if(!findUser) return res.status(401).send({
+            succes: false,
+            message: 'user not found'
+        })
 
         const checkPwd = await bcrypt.compare(req.body.password, findUser.password)
-        if(!checkPwd) return res.status(401).send('Invalid password')
+        if(!checkPwd) return res.status(401).send({
+            success: false,
+            message: 'Invalid password'
+        })
  
         const token= jwt.sign({...findUser}, `${process.env.JWT_SECRET}`)
 
         res.json({
             success: true,
             message:'Login successful',
-            data: findUser,
+            result: findUser,
             token,
            
         })
@@ -86,11 +100,11 @@ export const getUser = async (req:any, res:any, next:any)=>{
         const user = await UserModel.findById(req.user._doc._id)
         user.password=""
         res.json({
-            status:'success',
-            data:user
+            succes: true,
+            result:user
         })
     }catch(error){
-        res.json({
+        res.status(501).send({
             status: false,
             error: error
         })
@@ -105,8 +119,8 @@ export const getUserAll= async (req:any, res:any, next:any) => {
             result: users
         })
     }catch(err){
-        res.json({
-            success: true,
+        res.status(501).send({
+            success: false,
             error: err,
         })
     }

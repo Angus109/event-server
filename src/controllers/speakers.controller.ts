@@ -25,7 +25,7 @@ export const createSpeakers = async(req: any, res: any, next:any )=>{
         
 
    }catch(err){
-    res.json({
+    res.status(501).send({
         succes: false,
         error:err
     })
@@ -46,7 +46,7 @@ export const getSpeakersAll = async(req: any, res: any, next:any)=> {
         })
 
     }catch(err){
-        res.json({
+        res.status(501).send({
             success: false,
             error: err
         })
@@ -92,7 +92,7 @@ export const updateSpeakers = async (req:any, res: any, next:any) =>{
 
         
     }catch(err){
-        res.json({
+        res.status(501)({
             success: false,
             error: err
         })
@@ -128,7 +128,7 @@ export const deleteSpeaker= async(req: any, res:any, next:any)=>{
 
 
    }catch(err){
-    res.json({
+    res.status(501).send({
         succes: false,
         error: err
     })

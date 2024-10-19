@@ -3,16 +3,28 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import joi from 'joi-browser'
 import { CONFIG } from "../config";
+
 const config = CONFIG()
 
 export const createAdmin = async (req:any, res:any, next:any)=>{
     const {error} = ValidateAdmin(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
+    if(error) return res.status(400).send({
+        success:false,
+        message: error.details[0].message
+    })
 
    
     try{
         const findAdmin = await AdminModel.findOne({email:req.body.email})
-        if (findAdmin) return res.status(401).send('Email has been taken')
+        if (findAdmin) return res.status(401).send({
+            success: false,
+            message: 'Email has been taken'
+        })
+
+        if(req.body.code !== "group_eight") return res.status(403).send({
+            succes: false,
+            messge: "invalid invitation code"
+         })   
 
       
         const newAdmin = new AdminModel ({
@@ -29,14 +41,17 @@ export const createAdmin = async (req:any, res:any, next:any)=>{
         res.json({
             status:'success',
             message:'Admin created successfully',
-            data: saveUser
+            result: saveUser
         })
         
 
        
        
     }catch(ex){
-        res.status(500).send(ex)
+        res.status(500).send({
+            succes: false,
+            error: ex
+        })
     }
 
     
@@ -45,23 +60,32 @@ export const createAdmin = async (req:any, res:any, next:any)=>{
 
 export const AuthAdmin = async (req:any, res:any, next:any)=>{
     const {error} = Validate(req.body)
-    if(error) return res.status(400).send(error.details[0].message)
+    if(error) return res.status(400).send({
+        success: false,
+        message: error.details[0].message
+    })
 
 
     try{
         const checkAdmin = await AdminModel.findOne({email:req.body.email})
-        if(!checkAdmin) return res.status(401).send('Admin not found')
+        if(!checkAdmin) return res.status(401).send({
+            success: false,
+            message: 'Admin not found'
+        })
 
         const checkPwd = await bcrypt.compare(req.body.password, checkAdmin.password)
-        if(!checkPwd) return res.status(401).send('Invalid password')
+        if(!checkPwd) return res.status(401).send({
+            success: false,
+            message: 'Invalid password'
+        })
  
        if(checkAdmin.isAdmin == true){
         const token= jwt.sign({...checkAdmin}, `${process.env.JWT_SECRET}`)
 
         res.json({
-            status:'success',
+            success: true,
             message:'Login successful',
-            data: checkAdmin,
+            result: checkAdmin,
             token,
            
         })
@@ -82,11 +106,14 @@ export const getAdmin = async (req:any, res:any, next:any)=>{
         const admin = await AdminModel.findById(req.user._doc._id)
         admin.password=""
         res.json({
-            status:'success',
-            data:admin
+            success: true,
+            result:admin
         })
     }catch(error){
-        res.status(403).send(error)
+        res.status(403).send({
+            success:false,
+            error:error
+        })
     }
 }
 
