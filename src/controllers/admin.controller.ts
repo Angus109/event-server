@@ -79,7 +79,7 @@ export const AuthAdmin = async (req:any, res:any, next:any)=>{
             message: 'Invalid password'
         })
  
-       if(checkAdmin.isAdmin == true){
+ 
         const token= jwt.sign({...checkAdmin}, `${process.env.JWT_SECRET}`)
 
         res.json({
@@ -89,15 +89,13 @@ export const AuthAdmin = async (req:any, res:any, next:any)=>{
             token,
            
         })
-       }else{
-        res.status(401).send({
-            success: false,
-            message: "admin not verified"
-        })
-       }
+   
       
     }catch(ex){
-
+        res.status(501).send({
+            success:false,
+            error: ex
+        })
     }
 }
 
