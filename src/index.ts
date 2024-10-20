@@ -23,7 +23,10 @@ mongoose.connect(process.env.DATABASE_URL as string)
 .then(()=>console.log('connection established'))
 .catch(()=>console.log('Failed to establish connection'))
 
-app.use(cors())
+const LOCAL_URL= process.env.LOCAL_URL || "";
+const LIVE_URL= process.env.LIVE_URL || ""
+
+app.use(cors({ credentials: true, origin:[LOCAL_URL, LIVE_URL] }))
 app.use(express.json())
 app.use('/api/user', user)
 app.use('/api/admin', Admin )
