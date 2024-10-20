@@ -23,7 +23,7 @@ export const createAdmin = async (req:any, res:any, next:any)=>{
 
         if(req.body.code !== "group_eight") return res.status(403).send({
             succes: false,
-            messge: "invalid invitation code"
+            message: "invalid invitation code"
          })   
 
       
