@@ -30,9 +30,9 @@ app.use(cors({ credentials: true, origin:[LOCAL_URL, LIVE_URL] }))
 app.use(express.json())
 app.use('/api/user', user)
 app.use('/api/admin', Admin )
-app.use("api/sponsor", Sponsors)
-app.use("api/speaker", Speakers)
-app.use("api/ticket", Tickets)
+app.use("/api/sponsor", Sponsors)
+app.use("/api/speaker", Speakers)
+app.use("/api/ticket", Tickets)
 
 
 const PORT = process.env.PORT || 3500 || 4000
