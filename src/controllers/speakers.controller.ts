@@ -3,13 +3,13 @@ import { ValidateSpeakers, speakersModel} from "../models/speakers.model"
 
 
 export const createSpeakers = async(req: any, res: any, next:any )=>{
-   try{
     const {error} = ValidateSpeakers(req.body)
     if(error) return res.status(400).send({
         success: false,
         error: error.details[0].message
     })
 
+   try{
     const speakers = new speakersModel (req.body)
     const saveSpeaker = await speakers.save()
 
