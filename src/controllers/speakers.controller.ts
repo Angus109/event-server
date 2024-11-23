@@ -1,7 +1,5 @@
 
-import { result, update } from "lodash";
-import { ValidateSpeakers } from "../models/speakers.model";
-import { speakersModel } from "../models/speakers.model";
+import { ValidateSpeakers, speakersModel} from "../models/speakers.model"
 
 
 export const createSpeakers = async(req: any, res: any, next:any )=>{
@@ -12,7 +10,7 @@ export const createSpeakers = async(req: any, res: any, next:any )=>{
         error: error.details[0].message
     })
 
-    const speakers = new speakersModel(req.body)
+    const speakers = new speakersModel (req.body)
     const saveSpeaker = await speakers.save()
 
     res.json({
