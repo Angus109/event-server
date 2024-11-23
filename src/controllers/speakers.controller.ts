@@ -5,7 +5,7 @@ import { ValidateSpeakers, speakersModel} from "../models/speakers.model"
 export const createSpeakers = async(req: any, res: any, next:any )=>{
    try{
     const {error} = ValidateSpeakers(req.body)
-    if(error) return res.json({
+    if(error) return res.status(400).send({
         success: false,
         error: error.details[0].message
     })

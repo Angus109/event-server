@@ -15,13 +15,16 @@ interface Speakers{
 const schemaSpakers = new mongoose.Schema({
     name: {
         type: String,
+        required: true
     },
     image: {
         type: String,
+        required: true
      
     },
     role: {
-        type: String
+        type: String,
+        required: true
     },
     company: {
         type: String
@@ -34,7 +37,7 @@ const schemaSpakers = new mongoose.Schema({
 }, {timestamps: true})
 
 
-export function ValidateSpeakers (speakers: Speakers){
+export function ValidateSpeakers (speaker: any){
     const schema = {
         name:joi.string().required(),
         image: joi.string().required(),
@@ -43,7 +46,7 @@ export function ValidateSpeakers (speakers: Speakers){
         bio: joi.string().required()
     }
 
-    return joi.validate(speakers, schema)
+    return joi.validate(speaker, schema)
 
 }
 
