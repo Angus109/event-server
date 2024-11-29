@@ -42,7 +42,7 @@ export function ValidateSpeakers (speaker: any){
         name:joi.string().required(),
         image: joi.string().required(),
         role: joi.string().required(),
-        company: joi.String().required(),
+        company: joi.string().required(),
         bio: joi.string().required()
     }
 

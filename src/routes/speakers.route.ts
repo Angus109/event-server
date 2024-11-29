@@ -4,7 +4,7 @@ import auth from '../middlewares/auth'
 import { createSpeakers, updateSpeakers, deleteSpeaker, getSpeakersAll} from '../controllers/speakers.controller'
 
 
- router.post('/', createSpeakers)
+ router.post('/', auth, createSpeakers)
  router.put('/action', auth, updateSpeakers)
  router.delete('/action', auth, deleteSpeaker)
  router.get('/', auth, getSpeakersAll)

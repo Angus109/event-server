@@ -12,7 +12,8 @@ interface Sponsors{
 
 const schemaSponsors = new mongoose.Schema({
     name: {
-        type:String
+        type:String,
+        
     },
     logo: {
         type: String
