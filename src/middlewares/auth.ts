@@ -9,15 +9,20 @@ function auth (req:any, res:any, next:any){
         success: false,
         message: 'Access denied'
     })
-    try{
-        const decoded = jwt.verify(token, `${process.env.JWT_SECRET}` )
-        req.user = decoded
+
+         jwt.verify(token, `${process.env.JWT_SECRET}`, (err: any, user: any)=>{
+            if(err){
+                return res.status(403).send({
+                    success: false,
+                    message : "Invalid token supplied",
+                    error: err
+                })
+            }
+
+            req.user = user;
+            next();
+         } )
+    
         next()
-    }catch(error){
-        res.status(403).send({
-            success: false,
-            message: 'Invalid token supplied'
-        })
     }
-}
 export default auth
