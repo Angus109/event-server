@@ -13,14 +13,11 @@ export const createSpeakers = async(req: any, res: any, next:any )=>{
     const speakers = new speakersModel (req.body)
     const saveSpeaker = await speakers.save()
 
-    res.json({
+   return res.status(200).send({
         success: true,
+        message: "speaker created succesfully",
         result: saveSpeaker
     })
-        
-
-
-        
 
    }catch(err){
     res.status(501).send({

@@ -14,7 +14,7 @@ export const createTicket = async(req: any, res: any, next:any )=>{
     const ticket = new TicketModel(req.body)
     const saveticket = await ticket.save()
 
-    res.json({
+    res.status(200).send({
         success: true,
         result: saveticket
     })

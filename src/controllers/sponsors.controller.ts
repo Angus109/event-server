@@ -14,8 +14,9 @@ export const createSponsor = async(req: any, res: any, next:any )=>{
     const sponsor = new sponsorModel(req.body)
     const saveSponsor = await sponsor.save()
 
-    res.json({
+    res.status(200).send({
         success: true,
+        message: "sponsor created succesfully",
         result: saveSponsor
     })
         
