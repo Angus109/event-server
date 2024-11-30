@@ -6,7 +6,7 @@ import { createTicket, updateTicket, deleteTicket,getTicketsAll } from '../contr
  router.post('/',  createTicket)
  router.put('/action', auth, updateTicket)
  router.delete('/action', auth, deleteTicket)
- router.get('/', auth, getTicketsAll)
+ router.get('/', getTicketsAll)
 
  
 
