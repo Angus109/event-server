@@ -92,7 +92,8 @@ export const AuthAdmin = async (req:any, res:any, next:any)=>{
    
       
     }catch(ex){
-        res.status(501).send({
+        console.log(ex)
+       return res.status(500).send({
             success:false,
             error: ex
         })
@@ -101,14 +102,15 @@ export const AuthAdmin = async (req:any, res:any, next:any)=>{
 
 export const getAdmin = async (req:any, res:any, next:any)=>{
     try{      
-        const admin = await AdminModel.findById(req.user._doc._id)
-        admin.password=""
+        const admin = await AdminModel.findById(req.user._doc._id);
+        admin.password="";
         res.json({
             success: true,
             result:admin
         })
     }catch(error){
-        res.status(403).send({
+        console.log(error)
+       return res.status(500).send({
             success:false,
             error:error
         })

@@ -6,7 +6,7 @@ import { createSponsor, updateSponsor, deleteSponsor , getSponsorsAll} from '../
  router.post('/', auth, createSponsor )
  router.put('/action', auth, updateSponsor)
  router.delete('/action', auth, deleteSponsor)
- router.get('/', auth, getSponsorsAll)
+ router.get('/', getSponsorsAll)
 
  
 
